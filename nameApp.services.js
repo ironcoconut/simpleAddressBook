@@ -1,3 +1,6 @@
+// Just a static services to initialize the addressbook.
+// Maybe I'll add some db connections through loopbackjs.
+
 angular.module('nameApp')
 	.service('AddressBookData', function () {
 		var addresses = [{ 

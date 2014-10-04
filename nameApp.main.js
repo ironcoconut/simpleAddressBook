@@ -1,7 +1,11 @@
 var app = angular.module('nameApp', []);
 app.controller('mainCtrl', function($scope, AddressBookData) {
 	
+// Get the addressbook data from our service. Maybe I'll add a loopback server underneath?
+
 	$scope.addressBook = AddressBookData;
+
+// Blank form for initializing the address form and resetting it after an add/edit
 
 	var blankForm = {
 		"name": "",
@@ -19,6 +23,8 @@ app.controller('mainCtrl', function($scope, AddressBookData) {
 			$scope.clearForm();
 	};
 
+// updateEntry actually updates the entry in the addressbook and resets the form
+
 	$scope.updateEntry = function () {
 		var i = $scope.addressBook.indexOf($scope.edit);
 		$scope.addressBook[i] = $scope.form;
@@ -31,13 +37,16 @@ app.controller('mainCtrl', function($scope, AddressBookData) {
 		$scope.addressBook.splice(i, 1);
 	};
 
+// editEntry sets up the form for editing an entry but does not save any changes to the addressbook
+
 	$scope.editEntry = function (entry) {
 		$scope.form = angular.copy(entry);
 		$scope.edit = entry;
 	};
 
+// Address as used in the functions below refers to the contact methods (phone, email) of an entry
+
 	$scope.addAddress = function () {
-//		$scope.form.contact.push({"type": "phone", "address": ""});
 		$scope.form.contact.push(angular.copy(blankForm.contact[0]));
 	};
 
