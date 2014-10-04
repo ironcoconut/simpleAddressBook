@@ -1,0 +1,50 @@
+<html ng-app="nameApp">
+	<head>
+		<meta charset='utf-9'>
+		<title>Demo App for Names</title>
+		<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
+		<script src="nameApp.main.js"></script>
+		<script src="nameApp.services.js"></script>
+	</head>
+	<body ng-controller="mainCtrl" class="container">
+		<div class="page-header">
+			<h2>Addressbook</h2>
+		</div>
+
+		<div class="row">
+			<ul>
+				<li ng-repeat="entry in addressBook" class="col-md-3">
+					<p>Entry #: {{$index + 1}}</p>
+					<p>Name: {{entry.name}}</p>
+					<p ng-repeat="contact in entry.contact">{{contact.type}}: {{contact.address}}</p>
+					<p>
+						<a href="" ng-click="removeEntry(entry)">[Delete Entry]</a> | 
+						<a href="" ng-click="editEntry(entry)">[Edit Entry]</a>
+					</p>
+				</li>
+			</ul>
+		</div>
+		<div class="section-header">
+			<h2 ng-hide="edit">Add New Entry to Addressbook</h2>
+			<h2 ng-show="edit">Edit Entry in Addressbook</h2>
+		</div>
+		<div class="row">
+			<form>
+				Name: <input type="text" ng-model="form.name">
+				<div ng-repeat="contact in form.contact">
+					<select ng-model="contact.type">
+						<option>email</option>
+						<option>phone</option>
+					</select>
+					<input type="text" ng-model="contact.address">
+					<a href="" ng-click="removeAddress(contact)">[X]</a>
+				</div>
+				<a href="" ng-click="addAddress()">[+Contact Method]</a>
+				<button ng-click="updateEntry()" ng-show="edit">Update</button>
+				<button ng-click="addEntry()" ng-hide="edit">Add</button>
+				<button ng-click="clearForm()">Clear Form</button>
+			</form>
+		</div>
+	</body>
+</html>
