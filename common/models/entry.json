@@ -1,0 +1,21 @@
+{
+  "name": "entry",
+  "plural": "entries",
+  "base": "PersistedModel",
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "contactInfos": {
+      "type": "hasMany",
+      "model": "contactInfo",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": []
+}

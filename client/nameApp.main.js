@@ -1,5 +1,5 @@
 var app = angular.module('nameApp', []);
-app.controller('mainCtrl', function($scope, AddressBookData) {
+app.controller('mainCtrl', function($scope, AddressBookData, Entry) {
 	
 // Get the addressbook data from our service. Maybe I'll add a loopback server underneath?
 
@@ -14,6 +14,7 @@ app.controller('mainCtrl', function($scope, AddressBookData) {
 	
 	$scope.clearForm = function () {
 		$scope.form = angular.copy(blankForm);
+		$scope.edit = null; // edit holds the original copy of the entry being edited
 	};
 
 	$scope.$on('$viewContentLoaded', $scope.clearForm());
@@ -29,7 +30,6 @@ app.controller('mainCtrl', function($scope, AddressBookData) {
 		var i = $scope.addressBook.indexOf($scope.edit);
 		$scope.addressBook[i] = $scope.form;
 		$scope.clearForm();
-		$scope.edit = null;
 	};
 
 	$scope.removeEntry = function (entry) {

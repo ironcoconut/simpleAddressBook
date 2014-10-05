@@ -1,0 +1,11 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "mongoDB": {
+    "database": "nameApp",
+    "name": "mongoDB",
+    "connector": "mongodb"
+  }
+}
