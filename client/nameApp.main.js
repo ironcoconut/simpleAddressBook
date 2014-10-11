@@ -1,5 +1,5 @@
-var app = angular.module('nameApp', []);
-app.controller('mainCtrl', function($scope, AddressBookData) {
+angular.module('nameApp', ['ngRoute', 'lbServices'])
+.controller('mainCtrl', function($scope, AddressBookData, Entry) {
 	
 // Get the addressbook data from our service. Maybe I'll add a loopback server underneath?
 

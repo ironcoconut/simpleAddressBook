@@ -12,7 +12,7 @@ var urlBase = "/api";
  * the models exposed by the LoopBack server via the REST API.
  *
  */
-var module = angular.module("nameApp", ['ngResource']);
+var module = angular.module("lbServices", ['ngResource']);
 
 /**
  * @ngdoc object
