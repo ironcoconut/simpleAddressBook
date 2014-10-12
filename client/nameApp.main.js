@@ -54,4 +54,12 @@ angular.module('nameApp', ['ngRoute', 'lbServices'])
 		var i = $scope.form.contact.indexOf(contact);
 		$scope.form.contact.splice(i, 1);
 	};
+
+// Functions for lbServices Entry
+
+	$scope.entries = Entry.find({
+		filter: {
+			include: 'contactInfos'	
+		}
+		});
 });

@@ -58,5 +58,14 @@
 				<button ng-click="clearForm()">Clear Form</button>
 			</form>
 		</div>
+
+	<!-- Show a pre block with the entry data from the loopback server-->
+		
+		<div class="section-header">
+			<h2>Data from the loopback server</h2>
+		</div>
+		<div class="row">
+			<pre>{{entries | json}}</pre>
+		</div>
 	</body>
 </html>
