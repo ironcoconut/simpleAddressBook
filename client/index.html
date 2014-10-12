@@ -23,10 +23,10 @@
 		</div>
 		<div class="row">
 			<ul>
-				<li ng-repeat="entry in addressBook | filter:query" class="col-md-3">
-					<p>Entry #: {{$index + 1}}</p>
+				<li ng-repeat="entry in entries | filter:query" class="col-md-3">
+					<p>ID #: {{entry.id}}</p>
 					<p>Name: {{entry.name}}</p>
-					<p ng-repeat="contact in entry.contact">{{contact.type}}: {{contact.address}}</p>
+					<p ng-repeat="contact in entry.contactInfos">{{contact.type}}: {{contact.value}}</p>
 					<p>
 						<a href="" ng-click="removeEntry(entry)">[Delete Entry]</a> | 
 						<a href="" ng-click="editEntry(entry)">[Edit Entry]</a>
@@ -44,19 +44,20 @@
 		<div class="row">
 			<form>
 				Name: <input type="text" ng-model="form.name">
-				<div ng-repeat="contact in form.contact">
+				<div ng-repeat="contact in form.contactInfos">
 					<select ng-model="contact.type">
 						<option>email</option>
 						<option>phone</option>
 					</select>
-					<input type="text" ng-model="contact.address">
-					<a href="" ng-click="removeAddress(contact)">[X]</a>
+					<input type="text" ng-model="contact.value">
+					<a href="" ng-click="removeContactValue(contact)">[X]</a>
 				</div>
-				<a href="" ng-click="addAddress()">[+Contact Method]</a>
+				<a href="" ng-click="addContactValue()">[+Contact Method]</a>
 				<button ng-click="updateEntry()" ng-show="edit">Update</button>
 				<button ng-click="addEntry()" ng-hide="edit">Add</button>
 				<button ng-click="clearForm()">Clear Form</button>
 			</form>
+			<pre>{{form | json}}</pre>
 		</div>
 
 	<!-- Show a pre block with the entry data from the loopback server-->
