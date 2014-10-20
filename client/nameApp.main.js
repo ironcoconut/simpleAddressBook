@@ -1,5 +1,5 @@
 angular.module('nameApp', ['ngRoute', 'lbServices'])
-.controller('mainCtrl', function($scope, AddressBookData, Entry) {
+.controller('mainCtrl', function($scope, AddressBookData, Entry, ContactInfo) {
 	
 // Get the entries data from our service. 
 
@@ -13,7 +13,7 @@ angular.module('nameApp', ['ngRoute', 'lbServices'])
 
 	var blankForm = {
 		"name": "",
-		"contactInfos": [{ "type": "phone", "value": ""}]
+		"contactInfos": [{ "type": "email", "value": ""}, { "type": "phone", "value": ""}]
 	};
 	
 	$scope.clearForm = function () {
@@ -33,6 +33,10 @@ angular.module('nameApp', ['ngRoute', 'lbServices'])
 
 	$scope.updateEntry = function () {
 		Entry.upsert($scope.form);
+//		ContactInfo.upsert($scope.form.contactInfos[0]);
+		for (i = 0; i < $scope.form.contactInfos.length; i++) {
+			ContactInfo.upsert($scope.form.contactInfos[i]);
+		}
 		var i = $scope.entries.indexOf($scope.edit);
 		$scope.entries[i] = $scope.form;
 		$scope.clearForm();

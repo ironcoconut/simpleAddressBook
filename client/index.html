@@ -12,16 +12,16 @@
 	</head>
 	<body ng-controller="mainCtrl" class="container">
 
+	<!--Show the Header-->
+
+		<div class="row col-sm-6">
+			<div class="section-header">
+				<h2>Addressbook</h2>
+			</div>
+
 	<!--Show the Addresses in the Address Book-->
 
-		<div class="page-header">
-			<h2>Addressbook</h2>
-		</div>
-
-		<div class="row">
 			<p>Search: <input ng-model="query" type="text"></p>
-		</div>
-		<div class="row">
 			<ul>
 				<li ng-repeat="entry in entries | filter:query" class="col-md-3">
 					<p>ID #: {{entry.id}}</p>
@@ -37,11 +37,11 @@
 	
 	<!--Show the form for adding and editing the entries in the addressbook-->
 
-		<div class="section-header">
-			<h2 ng-hide="edit">Add New Entry to Addressbook</h2>
-			<h2 ng-show="edit">Edit Entry in Addressbook</h2>
-		</div>
-		<div class="row">
+		<div class="row col-sm-6">
+			<div class="section-header">
+				<h2 ng-hide="edit">Add New Entry</h2>
+				<h2 ng-show="edit">Edit Entry</h2>
+			</div>
 			<form>
 				Name: <input type="text" ng-model="form.name">
 				<div ng-repeat="contact in form.contactInfos">
@@ -62,11 +62,13 @@
 
 	<!-- Show a pre block with the entry data from the loopback server-->
 		
-		<div class="section-header">
-			<h2>Data from the loopback server</h2>
-		</div>
-		<div class="row">
-			<pre>{{entries | json}}</pre>
+		<div class="row col-sm-12">
+			<div class="section-header">
+				<h2>Data from the loopback server</h2>
+			</div>
+			<div class="row">
+				<pre>{{entries | json}}</pre>
+			</div>
 		</div>
 	</body>
 </html>
