@@ -6,11 +6,7 @@
     "name": {
       "type": "string",
       "required": true
-    },
-	"addresses": [{
-	  "type": "string",
-      "value": "string"
-    }]
+    }
   },
   "validations": [],
   "relations": {

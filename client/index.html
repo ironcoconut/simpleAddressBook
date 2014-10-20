@@ -23,7 +23,7 @@
 
 			<p>Search: <input ng-model="query" type="text"></p>
 			<ul>
-				<li ng-repeat="entry in entries | filter:query" class="col-md-3">
+				<li ng-repeat="entry in entries | filter:query">
 					<p>ID #: {{entry.id}}</p>
 					<p>Name: {{entry.name}}</p>
 					<p ng-repeat="contact in entry.contactInfos">{{contact.type}}: {{contact.value}}</p>
