@@ -71,6 +71,9 @@ angular.module('nameApp', ['ngRoute', 'lbServices'])
 	
 	$scope.editEntry = function (entry) {
 		$scope.form = angular.copy(entry);
+		if ($scope.form.contactInfos === null) {
+			$scope.form.contactInfos = [];
+		};
 		$scope.form.removedContactInfos = [];
 		$scope.edit = true;
 	};
