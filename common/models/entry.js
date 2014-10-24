@@ -1,10 +1,11 @@
 module.exports = function(Entry) {
 
-	Entry.saveEntry = function (upsertEntry) {
+	Entry.saveEntry = function (upsertEntry, cb) {
 
 		//Initialize Variables
 		var entryName = {};
 		var savedEntry = {};
+		var contactInfos = [];
 
 		//Validate Data
 		
@@ -12,18 +13,28 @@ module.exports = function(Entry) {
 
 		//Create Entry from sent data and save
 
+		entryName.id = upsertEntry.id;
 		entryName.name = upsertEntry.name;
-		if (upsertEntry.id) {
+		contactInfos = upsertEntry.contactInfos;
+
+		console.log(JSON.stringify(upsertEntry));
+		console.log(contactInfos);
+/*		if (upsertEntry.id) {
 			entryName.id = upsertEntry.id;
 		}
+*/
 
-		Entry.update(entryName, function (err, data) {
+		Entry.upsert(entryName, function (err, data) {
 
 			// Check each contactInfo for entryId then save
 
-			console.log(JSON.stringify(Entry.app.models));
-			data.name = 'woohoo';
-			data.create;
+			data.updateOrCreate();
+
+/*			data.contactInfo.upsert(contactInfos, function (e, d) {
+				savedEntry.contactinfos = d;
+			});
+*/
+			cb(null, savedEntry);
 
 /*			data.contactInfo.upsert({
 				type: "email",
@@ -43,16 +54,6 @@ module.exports = function(Entry) {
 				data.contactInfos.upsert(info);
 			});
 */		});
-
-
-		//Get saved Entry and Return
-
-		savedEntry = Entry.find({
-			where: {id: upsertEntry.id}, 
-			include: 'contactInfos'
-		});
-
-		return savedEntry;
 	};
 
 	Entry.remoteMethod(

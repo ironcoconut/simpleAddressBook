@@ -16,7 +16,7 @@
   "relations": {
     "entry": {
       "type": "belongsTo",
-      "model": "Entry"
+      "model": "entry"
     }
   },
   "acls": [],
