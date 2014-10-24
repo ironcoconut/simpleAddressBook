@@ -12,8 +12,7 @@
   "relations": {
     "contactInfos": {
       "type": "hasMany",
-      "model": "contactInfo",
-      "foreignKey": ""
+      "model": "contactInfo"
     }
   },
   "acls": [],

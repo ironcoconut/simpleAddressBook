@@ -13,7 +13,12 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "entry": {
+      "type": "belongsTo",
+      "model": "Entry"
+    }
+  },
   "acls": [],
   "methods": []
 }

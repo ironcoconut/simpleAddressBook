@@ -19,7 +19,7 @@ angular.module('nameApp', ['ngRoute', 'lbServices'])
 					$scope.entries = entries;
 					$scope.clearForm();
 				}, function (error) {
-					alert(error);
+					alert(JSON.stringify(error));
 				});
 	}
 
@@ -28,18 +28,18 @@ angular.module('nameApp', ['ngRoute', 'lbServices'])
 
 	var blankForm = {
 		"name": "",
-		"contactInfos": [{ "type": "email", "value": ""}, { "type": "phone", "value": ""}]
+		"contactInfos": [{ "type": "email", "value": ""}, { "type": "phone", "value": ""}],
+		"removedContactInfos": []
 	};
 	
 	$scope.clearForm = function () {
 		$scope.form = angular.copy(blankForm);
 		$scope.edit = false; 
-		$scope.form.removedContactInfos = [];
 	};
 
-// Load blank form once page is loaded
+// Load data and blank form once page is loaded
 
-	$scope.$on('$viewContentLoaded', $scope.getEntries() );
+	$scope.$on('$viewContentLoaded', $scope.getEntries());
 
  /*************
  * Create New *
@@ -71,7 +71,7 @@ angular.module('nameApp', ['ngRoute', 'lbServices'])
 	
 	$scope.editEntry = function (entry) {
 		$scope.form = angular.copy(entry);
-		if ($scope.form.contactInfos === null) {
+		if (!$scope.form.contactInfos) {
 			$scope.form.contactInfos = [];
 		};
 		$scope.form.removedContactInfos = [];
@@ -87,9 +87,9 @@ angular.module('nameApp', ['ngRoute', 'lbServices'])
 			.upsert($scope.form)
 			.$promise
 			.then(function (updatedEntry) {
-				$scope.entries.forEach(function (entry) {
+				$scope.entries.forEach(function (entry, i) {
 					if (entry.id === updatedEntry.id) {
-						var i = $scope.entries.indexOf(entry);
+						//var i = $scope.entries.indexOf(entry);
 						$scope.entries[i] = updatedEntry;
 					};
 				});
