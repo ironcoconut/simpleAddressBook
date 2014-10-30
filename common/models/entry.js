@@ -16,19 +16,36 @@ module.exports = function(Entry) {
 		entryName.id = upsertEntry.id;
 		entryName.name = upsertEntry.name;
 		contactInfos = upsertEntry.contactInfos;
+		removedContactInfos = upsertEntry.removedContactInfos;
 
-		console.log(JSON.stringify(upsertEntry));
-		console.log(contactInfos);
 /*		if (upsertEntry.id) {
 			entryName.id = upsertEntry.id;
 		}
 */
 
 		Entry.upsert(entryName, function (err, data) {
+			console.log(data.contactInfos);
+			savedEntry = data;
+			savedEntry.contactInfos = [];
+			savedEntry.removedContactInfos = [];
+
+			if (contactInfos) {
+				contactInfos.forEach(function(entry) {
+					data.contactInfos.upsert(entry, function(e, d) {
+						savedEntry.contactInfos.push(d);
+					});
+				});
+			}
+
+			if (removedContactInfos) {
+				removedContactInfos.forEach(function(entry) {
+					data.contactInfos.destroyById(entry.id);
+				});
+			};
 
 			// Check each contactInfo for entryId then save
+			console.log(savedEntry);
 
-			data.updateOrCreate();
 
 /*			data.contactInfo.upsert(contactInfos, function (e, d) {
 				savedEntry.contactinfos = d;

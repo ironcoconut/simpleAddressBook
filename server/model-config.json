@@ -6,30 +6,30 @@
     ]
   },
   "User": {
-    "dataSource": "mongoDB"
+    "dataSource": "db"
   },
   "AccessToken": {
-    "dataSource": "mongoDB",
+    "dataSource": "db",
     "public": false
   },
   "ACL": {
-    "dataSource": "mongoDB",
+    "dataSource": "db",
     "public": false
   },
   "RoleMapping": {
-    "dataSource": "mongoDB",
+    "dataSource": "db",
     "public": false
   },
   "Role": {
-    "dataSource": "mongoDB",
+    "dataSource": "db",
     "public": false
   },
   "entry": {
-    "dataSource": "mongoDB",
+    "dataSource": "db",
     "public": true
   },
   "contactInfo": {
-    "dataSource": "mongoDB",
+    "dataSource": "db",
     "public": true
   }
 }
