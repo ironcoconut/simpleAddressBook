@@ -1,5 +1,5 @@
 angular.module('nameApp', ['ngRoute', 'lbServices'])
-.controller('mainCtrl', function($scope, AddressBookData, Entry, ContactInfo) {
+.controller('mainCtrl', function($scope, AddressBookData, Entry) {
 
  /*****************
  * Initialization *
@@ -9,11 +9,7 @@ angular.module('nameApp', ['ngRoute', 'lbServices'])
 
 	$scope.getEntries = function () {
 		Entry
-			.find({
-				filter: {
-					include: 'contactInfos'	
-					}
-				})
+			.find()
 			.$promise
 			.then(function (entries) {
 					$scope.entries = entries;
@@ -28,18 +24,18 @@ angular.module('nameApp', ['ngRoute', 'lbServices'])
 
 	var blankForm = {
 		"name": "",
-		"contactInfos": [{ "type": "email", "value": ""}, { "type": "phone", "value": ""}]
+		"contactInfos": [{ "type": "email", "value": ""}, { "type": "phone", "value": ""}],
+		"removedContactInfos": []
 	};
 	
 	$scope.clearForm = function () {
 		$scope.form = angular.copy(blankForm);
 		$scope.edit = false; 
-		$scope.form.removedContactInfos = [];
 	};
 
 // Load blank form once page is loaded
 
-	$scope.$on('$viewContentLoaded', $scope.getEntries() );
+	$scope.$on('$viewContentLoaded', $scope.getEntries());
 
  /*************
  * Create New *
@@ -48,8 +44,13 @@ angular.module('nameApp', ['ngRoute', 'lbServices'])
 // Add New Entry
 
 	$scope.addEntry = function () {
+		var entry = {
+			name: $scope.form.name,
+			contactInfos: $scope.form.contactInfos
+		};
+ 
 		Entry
-			.create($scope.form)
+			.create(entry)
 			.$promise
 			.then(function(newEntry) {
 				$scope.entries.push(newEntry);
@@ -57,7 +58,7 @@ angular.module('nameApp', ['ngRoute', 'lbServices'])
 			});
 	};
 
-// Add New Contact to Form
+// Add New contactInfo to Form
 
 	$scope.addContactValue= function () {
 		$scope.form.contactInfos.push(angular.copy(blankForm.contactInfos[0]));
@@ -71,7 +72,7 @@ angular.module('nameApp', ['ngRoute', 'lbServices'])
 	
 	$scope.editEntry = function (entry) {
 		$scope.form = angular.copy(entry);
-		if ($scope.form.contactInfos === null) {
+		if (!$scope.form.contactInfos) {
 			$scope.form.contactInfos = [];
 		};
 		$scope.form.removedContactInfos = [];
@@ -79,12 +80,16 @@ angular.module('nameApp', ['ngRoute', 'lbServices'])
 	};
 
 // updateEntry actually updates the entry in the addressbook and resets the form
- 
-// NOTE: THIS IS CURRENTLY NOT IMPLEMENTED IN THE API
 
 	$scope.updateEntry = function () {
+		var entry = {
+			id: $scope.form.id,
+			name: $scope.form.name,
+			contactInfos: $scope.form.contactInfos
+		};
+
 		Entry
-			.upsert($scope.form)
+			.upsert(entry)
 			.$promise
 			.then(function (updatedEntry) {
 				$scope.entries.forEach(function (entry) {
@@ -113,11 +118,11 @@ angular.module('nameApp', ['ngRoute', 'lbServices'])
 			});
 	};
 
-// Delete Contact Info From Form 
+// Delete contactInfo From Form 
 
 	$scope.removeContactValue = function (contact) {
 		var i = $scope.form.contactInfos.indexOf(contact);
-		if ($scope.form.contactInfos[i].id) {
+		if ($scope.form.contactInfos[i].value) {
 			$scope.form.removedContactInfos.push($scope.form.contactInfos[i]);
 		};
 		$scope.form.contactInfos.splice(i, 1);

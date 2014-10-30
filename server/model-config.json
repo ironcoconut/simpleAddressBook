@@ -27,9 +27,5 @@
   "entry": {
     "dataSource": "mongoDB",
     "public": true
-  },
-  "contactInfo": {
-    "dataSource": "mongoDB",
-    "public": true
   }
 }
